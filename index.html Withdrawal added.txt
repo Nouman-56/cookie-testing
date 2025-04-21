@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cookie Master Pro</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --orange: #e67e22;
+            --black: #2d3436;
+            --telegram: #0088cc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Login Page */
+        #login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .main-heading {
+            background: linear-gradient(to right, var(--black), var(--orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .sub-heading {
+            color: var(--black);
+            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #dfe6e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .login-tab.active {
+            border-bottom: 2px solid var(--orange);
+            font-weight: 600;
+            color: var(--orange);
+        }
+        
+        .forgot-link {
+            display: block;
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            color: var(--orange);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .login-btn {
+            background: linear-gradient(to right, var(--orange), #e74c3c);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.6);
+        }
+        
+        .signup-btn {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .signup-btn:hover {
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+        }
+        
+        .already-user {
+            margin-top: 20px;
+            color: var(--dark);
+        }
+        
+        .already-user a {
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .telegram-btn {
+            background: linear-gradient(to right, var(--telegram), #00aced);
+            color: white;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Dashboard */
+        #dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-name {
+            font-weight: 700;
+            color: var(--black);
+        }
+        
+        .live-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(0, 184, 148, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+        
+        .logout-btn {
+            background: rgba(0, 0, 0, 0.05);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .game-area {
+                grid-template-columns: 250px 1fr 250px;
+            }
+        }
+        
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .panel-title {
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .leaderboard-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .cookie-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+        
+        #cookie-btn {
+            width: 200px;
+            height: 200px;
+            font-size: 100px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 30px 0;
+            transition: all 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #cookie-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .cookie-count {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .action-btn {
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .boost-btn {
+            background: linear-gradient(to right, var(--orange), #e74c3c);
+            color: white;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        .boost-btn.disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .ad-btn {
+            background: linear-gradient(to right, #fdcb6e, #ffeaa7);
+            color: var(--black);
+            box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
+        }
+        
+        .withdraw-btn {
+            background: linear-gradient(to right, #00b894, #55efc4);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+        
+        .referral-section {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .referral-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--black);
+        }
+        
+        .referral-code {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-weight: 700;
+            color: var(--orange);
+            margin: 15px 0;
+            word-break: break-all;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .referral-note {
+            font-size: 0.9rem;
+            color: var(--black);
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        
+        /* Leaderboard */
+        #leaderboard {
+            list-style: none;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .player-rank {
+            font-weight: 700;
+            color: var(--orange);
+            width: 30px;
+        }
+        
+        .player-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .player-cookies {
+            font-weight: 700;
+            color: var(--black);
+        }
+        
+        /* Stats */
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .stats-label {
+            color: var(--black);
+            font-weight: 500;
+        }
+        
+        .stats-value {
+            font-weight: 700;
+            color: var(--orange);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Animations */
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* New styles for error messages */
+        .error-message {
+            color: #ff4444;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Highlight current user in leaderboard */
+        .current-user {
+            background-color: rgba(253, 203, 110, 0.2);
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
+        
+        /* Active player indicator */
+        .active-player {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: blink 1.5s infinite;
+        }
+        
+        /* Cookie click animation */
+        @keyframes cookieClick {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        
+        .cookie-click {
+            animation: cookieClick 0.1s;
+        }
+        
+        /* Daily limit notification */
+        .limit-notification {
+            color: #ff4444;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .limit-timer {
+            color: white;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        /* Terms checkbox */
+        .terms-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .terms-checkbox {
+            margin-right: 10px;
+        }
+        
+        .terms-link {
+            color: var(--orange);
+            text-decoration: none;
+        }
+        
+        /* Star rating */
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .star {
+            color: var(--warning);
+            font-size: 1.5rem;
+            margin: 0 2px;
+        }
+        
+        /* Withdrawal Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--black);
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #dfe6e9;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        
+        .modal-select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #dfe6e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            background-color: white;
+        }
+        
+        .modal-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .modal-btn-primary {
+            background: linear-gradient(to right, var(--success), #55efc4);
+            color: white;
+        }
+        
+        .modal-btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .modal-btn-secondary {
+            background: #dfe6e9;
+            color: var(--black);
+        }
+        
+        .modal-btn-secondary:hover {
+            background: #b2bec3;
+        }
+        
+        .modal-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        
+        .modal-error {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .modal-success {
+            color: var(--success);
+            font-size: 1rem;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .rupees-display {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--success);
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page">
+        <div class="login-box">
+            <h1 class="main-heading">COOKIE MASTER CHALLENGE</h1>
+            <p class="sub-heading">Participate in the Cookies Competition for a fair chance to win amazing prizes every month!</p>
+            
+            <div class="login-options">
+                <div class="login-tab active" id="login-tab" onclick="switchTab('login')">
+                    LOGIN
+                </div>
+                <div class="login-tab" id="signup-tab" onclick="switchTab('signup')">
+                    SIGN UP
+                </div>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="login-form">
+                <div class="input-group">
+                    <label for="login-username">Username or Email</label>
+                    <input type="text" id="login-username" placeholder="Enter your username or email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                    <a href="#" class="forgot-link" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+                
+                <div class="terms-container">
+                    <input type="checkbox" id="terms-checkbox" class="terms-checkbox" required>
+                    <a href="#" class="terms-link">Terms & Conditions</a>
+                </div>
+                
+                <button class="login-btn" onclick="login()" id="login-button">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN
+                </button>
+                
+                <div class="already-user">
+                    Don't have an account? <a href="#" onclick="switchTab('signup')">Sign up</a>
+                </div>
+            </div>
+            
+            <!-- Signup Form (Hidden by default) -->
+            <div id="signup-form" style="display: none;">
+                <div class="input-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" placeholder="CookieMaster123" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" required>
+                    <div class="error-message" id="username-error">Username already exists</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="your@email.com" required>
+                    <div class="error-message" id="email-error">Email already registered</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="••••••••" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="referral-code">Referral Code (Optional)</label>
+                    <input type="text" id="referral-code" placeholder="Enter friend's code">
+                    <div class="error-message" id="referral-error">Invalid referral code</div>
+                </div>
+                
+                <div class="terms-container">
+                    <input type="checkbox" id="signup-terms-checkbox" class="terms-checkbox" required>
+                    <a href="#" class="terms-link">Terms & Conditions</a>
+                </div>
+                
+                <button class="login-btn signup-btn" onclick="signup()" id="signup-button">
+                    <i class="fas fa-user-plus"></i> SIGN UP
+                </button>
+                
+                <div class="already-user">
+                    Already have an account? <a href="#" onclick="switchTab('login')">Login</a>
+                </div>
+            </div>
+            
+            <!-- Forgot Password Form (Hidden by default) -->
+            <div id="forgot-form" style="display: none;">
+                <div class="input-group">
+                    <label for="forgot-email">Email Address</label>
+                    <input type="email" id="forgot-email" placeholder="your@email.com" required>
+                </div>
+                
+                <button class="login-btn" onclick="resetPassword()">
+                    <i class="fas fa-key"></i> RESET PASSWORD
+                </button>
+                
+                <div class="already-user">
+                    Remember your password? <a href="#" onclick="switchTab('login')">Login</a>
+                </div>
+            </div>
+            
+            <div class="star-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </div>
+            
+            <a href="#" class="telegram-btn" target="_blank" id="telegram-button">
+                <i class="fab fa-telegram"></i> Join Our Telegram Channel
+            </a>
+            
+            <div class="copyright">
+                &copy; 2023 Cookie Master Pro. All Rights Reserved.
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard">
+        <header>
+            <div class="user-info">
+                <span class="user-name" id="user-name">CookieMaster</span>
+                <div class="live-status">
+                    <span class="live-dot"></span>
+                    <span>LIVE</span>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </header>
+        
+        <div class="game-area">
+            <!-- Left Panel - Leaderboard -->
+            <div class="panel">
+                <h3 class="panel-title"><i class="fas fa-trophy"></i> TOP 100 PLAYERS</h3>
+                <div class="leaderboard-container">
+                    <ol id="leaderboard">
+                        <!-- Will be populated by JavaScript -->
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Center Panel - Game -->
+            <div class="cookie-container">
+                <div class="cookie-count" id="cookie-count">0 Cookies</div>
+                <button id="cookie-btn">🍪</button>
+                
+                <div class="limit-notification" id="limit-notification">
+                    Account limit reached. Please come back tomorrow!
+                </div>
+                
+                <div class="limit-timer" id="limit-timer">
+                    Time remaining: 24:00:00
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn boost-btn pulse" id="boost-btn" onclick="buyBoost()">
+                        <i class="fas fa-bolt"></i> $10 BOOST PLAN (5000 Cookies + 2x for 1 Month)
+                    </button>
+                    
+                    <button class="action-btn ad-btn" onclick="watchAd()">
+                        <i class="fas fa-ad"></i> Watch Ad (2x for 10 Minutes)
+                    </button>
+                    
+                    <button class="action-btn withdraw-btn" onclick="openWithdrawModal()">
+                        <i class="fas fa-cookie-bite"></i> Can I Eat Your Cookies
+                    </button>
+                </div>
+                
+                <div class="referral-section">
+                    <div class="referral-title">YOUR REFERRAL CODE</div>
+                    <div class="referral-code" id="referral-code-display" onclick="copyReferralCode()">COOKIE-XXXXXX</div>
+                    <div class="referral-note">
+                        When any of your friends join through your referral, you'll automatically receive a 2x boost for one day and 5,000 cookies added to your account. Refer now and earn 2x per click!
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Panel - Stats -->
+            <div class="panel">
+                <h3 class="panel-title"><i class="fas fa-chart-line"></i> YOUR STATS</h3>
+                
+                <div class="stats-item">
+                    <span class="stats-label">Rank</span>
+                    <span class="stats-value" id="user-rank">#4</span>
+                </div>
+                
+                <div class="stats-item">
+                    <span class="stats-label">Cookies</span>
+                    <span class="stats-value" id="user-cookies">0</span>
+                </div>
+                
+                <div class="stats-item">
+                    <span class="stats-label">Multiplier</span>
+                    <span class="stats-value" id="user-multiplier">1x</span>
+                </div>
+                
+                <div class="stats-item">
+                    <span class="stats-label">Referrals</span>
+                    <span class="stats-value" id="user-referrals">0</span>
+                </div>
+                
+                <div class="stats-item">
+                    <span class="stats-label">Referral 2x Days</span>
+                    <span class="stats-value" id="referral-days">0 days</span>
+                </div>
+                
+                <div class="stats-item">
+                    <span class="stats-label">Boost Active</span>
+                    <span class="stats-value" id="user-boost">No</span>
+                </div>
+                
+                <div class="stats-item">
+                    <span class="stats-label">Daily Earnings</span>
+                    <span class="stats-value" id="daily-earnings">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            &copy; 2023 Cookie Master Pro. All Rights Reserved.
+        </div>
+    </div>
+    
+    <!-- Withdrawal Modal -->
+    <div class="modal" id="withdraw-modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Withdraw Cookies</h3>
+            
+            <div class="input-group">
+                <label for="withdraw-cookies">Enter Cookies to Withdraw (Minimum 100,000)</label>
+                <input type="number" id="withdraw-cookies" class="modal-input" min="100000" placeholder="100000">
+                <div class="modal-error" id="withdraw-error"></div>
+            </div>
+            
+            <div class="rupees-display" id="rupees-display">
+                100,000 Cookies = 120 Rupees
+            </div>
+            
+            <div class="input-group">
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" class="modal-select">
+                    <option value="easypaisa">Easypaisa</option>
+                    <option value="jazzcash">Jazzcash</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="account-name">Account Full Name</label>
+                <input type="text" id="account-name" class="modal-input" placeholder="Enter your full name as registered">
+            </div>
+            
+            <div class="input-group">
+                <label for="account-number">Account Number</label>
+                <input type="text" id="account-number" class="modal-input" placeholder="Enter your account number">
+            </div>
+            
+            <div class="modal-note">
+                <strong>Important Note:</strong> Dear user, please make sure to enter your Account Name and number carefully, as we will not be responsible for any mistakes or losses. Thank you.
+            </div>
+            
+            <button class="modal-btn modal-btn-primary" id="give-me-btn" onclick="processWithdrawal()" style="display: none;">
+                <i class="fas fa-hand-holding-usd"></i> Give Me
+            </button>
+            
+            <div class="modal-success" id="withdraw-success">
+                Thank you for feeding me
+            </div>
+            
+            <button class="modal-btn modal-btn-secondary" onclick="closeWithdrawModal()">
+                <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBpO3VLOMNh_ctBC71ZMShQvlOyu2uM5cs",
+            authDomain: "cookie-bebb2.firebaseapp.com",
+            projectId: "cookie-bebb2",
+            storageBucket: "cookie-bebb2.appspot.com",
+            messagingSenderId: "268231772170",
+            appId: "1:268231772170:web:d6452769674377d12eb7f3"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Game Variables
+        let cookies = 0;
+        let isBoosted = false;
+        let adCooldown = false;
+        let referrals = 0;
+        let referralDays = 0;
+        let referralCode = generateReferralCode();
+        let boostActive = false;
+        let dailyEarnings = 0;
+        let lastEarningDate = null;
+        let limitReached = false;
+        let limitTimer = null;
+        let currentUser = { 
+            uid: "",
+            name: "", 
+            email: "",
+            cookies: 0,
+            referrals: 0,
+            referralDays: 0,
+            boostActive: false,
+            boostExpiry: null,
+            multiplier: 1,
+            lastLogin: null,
+            lastClick: null,
+            referralCode: "",
+            dailyEarnings: 0,
+            lastEarningDate: null
+        };
+        
+        // Leaderboard variables
+        let leaderboardUnsubscribe = null;
+        let allPlayers = [];
+        
+        // DOM Elements
+        const loginPage = document.getElementById('login-page');
+        const dashboard = document.getElementById('dashboard');
+        const cookieBtn = document.getElementById('cookie-btn');
+        const boostBtn = document.getElementById('boost-btn');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const forgotForm = document.getElementById('forgot-form');
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const cookieCount = document.getElementById('cookie-count');
+        const userCookies = document.getElementById('user-cookies');
+        const userRank = document.getElementById('user-rank');
+        const userMultiplier = document.getElementById('user-multiplier');
+        const userReferrals = document.getElementById('user-referrals');
+        const referralDaysDisplay = document.getElementById('referral-days');
+        const userBoost = document.getElementById('user-boost');
+        const referralCodeDisplay = document.getElementById('referral-code-display');
+        const userName = document.getElementById('user-name');
+        const leaderboard = document.getElementById('leaderboard');
+        const limitNotification = document.getElementById('limit-notification');
+        const limitTimerDisplay = document.getElementById('limit-timer');
+        const dailyEarningsDisplay = document.getElementById('daily-earnings');
+        const loginButton = document.getElementById('login-button');
+        const signupButton = document.getElementById('signup-button');
+        const telegramButton = document.getElementById('telegram-button');
+        const termsCheckbox = document.getElementById('terms-checkbox');
+        const signupTermsCheckbox = document.getElementById('signup-terms-checkbox');
+        
+        // Withdrawal Modal Elements
+        const withdrawModal = document.getElementById('withdraw-modal');
+        const withdrawCookiesInput = document.getElementById('withdraw-cookies');
+        const rupeesDisplay = document.getElementById('rupees-display');
+        const paymentMethodSelect = document.getElementById('payment-method');
+        const accountNameInput = document.getElementById('account-name');
+        const accountNumberInput = document.getElementById('account-number');
+        const giveMeBtn = document.getElementById('give-me-btn');
+        const withdrawError = document.getElementById('withdraw-error');
+        const withdrawSuccess = document.getElementById('withdraw-success');
+        
+        // Error message elements
+        const usernameError = document.getElementById('username-error');
+        const emailError = document.getElementById('email-error');
+        const referralError = document.getElementById('referral-error');
+        
+        // Check auth state
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                loadUserData(user.uid);
+            } else {
+                // User is signed out
+                loginPage.style.display = 'flex';
+                dashboard.style.display = 'none';
+                
+                // Clean up leaderboard listener
+                if (leaderboardUnsubscribe) {
+                    leaderboardUnsubscribe();
+                    leaderboardUnsubscribe = null;
+                }
+            }
+        });
+        
+        // Load user data from Firestore
+        async function loadUserData(uid) {
+            try {
+                const doc = await db.collection('users').doc(uid).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    currentUser = {
+                        uid: uid,
+                        name: data.name,
+                        email: data.email,
+                        cookies: data.cookies || 100,
+                        referrals: data.referrals || 0,
+                        referralDays: data.referralDays || 0,
+                        boostActive: data.boostActive || false,
+                        boostExpiry: data.boostExpiry || null,
+                        multiplier: data.multiplier || 1,
+                        lastLogin: data.lastLogin || new Date(),
+                        lastClick: data.lastClick || Date.now(),
+                        referralCode: data.referralCode || generateReferralCode(),
+                        dailyEarnings: data.dailyEarnings || 0,
+                        lastEarningDate: data.lastEarningDate || null
+                    };
+                    
+                    // Update UI with loaded data
+                    cookies = currentUser.cookies;
+                    referrals = currentUser.referrals;
+                    referralDays = currentUser.referralDays;
+                    isBoosted = currentUser.multiplier > 1;
+                    boostActive = currentUser.boostActive;
+                    referralCode = currentUser.referralCode;
+                    dailyEarnings = currentUser.dailyEarnings || 0;
+                    lastEarningDate = currentUser.lastEarningDate ? currentUser.lastEarningDate.toDate() : null;
+                    
+                    // Check if we need to reset daily earnings
+                    checkDailyReset();
+                    
+                    // Check if boost is still active
+                    if (currentUser.boostActive && currentUser.boostExpiry) {
+                        const now = new Date();
+                        const expiry = currentUser.boostExpiry.toDate();
+                        if (now > expiry) {
+                            boostActive = false;
+                            isBoosted = false;
+                            currentUser.multiplier = 1;
+                            await db.collection('users').doc(uid).update({
+                                boostActive: false,
+                                multiplier: 1
+                            });
+                        }
+                    }
+                    
+                    // Show dashboard
+                    loginPage.style.display = 'none';
+                    dashboard.style.display = 'block';
+                    userName.textContent = currentUser.name;
+                    referralCodeDisplay.textContent = referralCode;
+                    
+                    updateCookies();
+                    updateMultiplier();
+                    updateReferralStats();
+                    updateDailyEarnings();
+                    
+                    // Start live updates
+                    startLiveUpdates();
+                } else {
+                    // User document doesn't exist (shouldn't happen)
+                    console.error("User document not found");
+                    auth.signOut();
+                }
+            } catch (error) {
+                console.error("Error loading user data:", error);
+                alert("Error loading your data. Please try again.");
+                auth.signOut();
+            }
+        }
+        
+        // Save user data to Firestore
+        async function saveUserData() {
+            try {
+                await db.collection('users').doc(currentUser.uid).update({
+                    cookies: cookies,
+                    referrals: referrals,
+                    referralDays: referralDays,
+                    boostActive: boostActive,
+                    multiplier: isBoosted ? 2 : 1,
+                    lastLogin: new Date(),
+                    lastClick: Date.now(),
+                    dailyEarnings: dailyEarnings,
+                    lastEarningDate: lastEarningDate || new Date()
+                });
+            } catch (error) {
+                console.error("Error saving user data:", error);
+            }
+        }
+        
+        // Check if we need to reset daily earnings
+        function checkDailyReset() {
+            const now = new Date();
+            const lastEarning = lastEarningDate || now;
+            
+            // Check if it's a new day
+            if (lastEarning.getDate() !== now.getDate() || 
+                lastEarning.getMonth() !== now.getMonth() || 
+                lastEarning.getFullYear() !== now.getFullYear()) {
+                dailyEarnings = 0;
+                limitReached = false;
+                limitNotification.style.display = 'none';
+                limitTimerDisplay.style.display = 'none';
+                
+                if (limitTimer) {
+                    clearInterval(limitTimer);
+                    limitTimer = null;
+                }
+            }
+            
+            // Check if limit was reached and timer needs to continue
+            if (limitReached) {
+                startLimitTimer();
+            }
+        }
+        
+        // Start the 24-hour countdown timer
+        function startLimitTimer() {
+            let endTime = new Date();
+            endTime.setHours(endTime.getHours() + 24);
+            
+            limitTimer = setInterval(function() {
+                const now = new Date();
+                const diff = endTime - now;
+                
+                if (diff <= 0) {
+                    clearInterval(limitTimer);
+                    limitTimer = null;
+                    limitReached = false;
+                    dailyEarnings = 0;
+                    limitNotification.style.display = 'none';
+                    limitTimerDisplay.style.display = 'none';
+                    return;
+                }
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                limitTimerDisplay.textContent = `Time remaining: ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        // Switch between login/signup tabs
+        function switchTab(tab) {
+            if (tab === 'login') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+                forgotForm.style.display = 'none';
+                loginTab.classList.add('active');
+                signupTab.classList.remove('active');
+            } else if (tab === 'signup') {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                forgotForm.style.display = 'none';
+                loginTab.classList.remove('active');
+                signupTab.classList.add('active');
+            }
+        }
+        
+        // Show forgot password form
+        function showForgotPassword() {
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'none';
+            forgotForm.style.display = 'block';
+            loginTab.classList.remove('active');
+            signupTab.classList.remove('active');
+        }
+        
+        // Generate Referral Code
+        function generateReferralCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let result = '';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return 'COOKIE-' + result;
+        }
+        
+        // Copy referral code to clipboard
+        function copyReferralCode() {
+            navigator.clipboard.writeText(referralCodeDisplay.textContent)
+                .then(() => {
+                    alert('Referral code copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
+        
+        // Update Leaderboard with real-time data
+        function updateLeaderboard() {
+            // Sort all players by cookies (descending)
+            const sortedPlayers = [...allPlayers].sort((a, b) => b.cookies - a.cookies);
+            
+            // Update leaderboard HTML (top 100)
+            leaderboard.innerHTML = '';
+            sortedPlayers.slice(0, 100).forEach((player, index) => {
+                const li = document.createElement('li');
+                li.className = 'leaderboard-item';
+                
+                // Check if this is the current user
+                const isCurrentUser = player.uid === currentUser.uid;
+                
+                // Check if player is active (clicked in last 30 seconds)
+                const isActive = player.lastClick && (Date.now() - player.lastClick) < 30000;
+                
+                // Add current-user class if it's the current user
+                if (isCurrentUser) {
+                    li.classList.add('current-user');
+                }
+                
+                li.innerHTML = `
+                    <span>
+                        <span class="player-rank">${index + 1}</span>
+                        ${isActive ? '<span class="active-player"></span>' : ''}
+                        <span class="player-name">${player.name}</span>
+                    </span>
+                    <span class="player-cookies">${player.cookies} 🍪</span>
+                `;
+                leaderboard.appendChild(li);
+                
+                // Update user's rank if it's the current user
+                if (isCurrentUser) {
+                    userRank.textContent = `#${index + 1}`;
+                }
+            });
+        }
+        
+        // Start live updates for leaderboard
+        function startLiveUpdates() {
+            // Unsubscribe from any existing listener
+            if (leaderboardUnsubscribe) {
+                leaderboardUnsubscribe();
+            }
+            
+            // Subscribe to real-time updates
+            leaderboardUnsubscribe = db.collection('users')
+                .orderBy('cookies', 'desc')
+                .limit(100)
+                .onSnapshot((snapshot) => {
+                    allPlayers = [];
+                    snapshot.forEach((doc) => {
+                        const player = doc.data();
+                        player.uid = doc.id;
+                        allPlayers.push(player);
+                    });
+                    
+                    // Update the leaderboard display
+                    updateLeaderboard();
+                }, (error) => {
+                    console.error("Leaderboard error:", error);
+                });
+        }
+        
+        // Check if username exists
+        async function checkUsernameExists(username) {
+            try {
+                const snapshot = await db.collection('users')
+                    .where('name', '==', username)
+                    .limit(1)
+                    .get();
+                
+                return !snapshot.empty;
+            } catch (error) {
+                console.error("Error checking username:", error);
+                return false;
+            }
+        }
+        
+        // Check if email exists
+        async function checkEmailExists(email) {
+            try {
+                const snapshot = await db.collection('users')
+                    .where('email', '==', email)
+                    .limit(1)
+                    .get();
+                
+                return !snapshot.empty;
+            } catch (error) {
+                console.error("Error checking email:", error);
+                return false;
+            }
+        }
+        
+        // Validate referral code
+        async function validateReferralCode(code) {
+            if (!code) return true; // Optional field
+            
+            try {
+                const snapshot = await db.collection('users')
+                    .where('referralCode', '==', code)
+                    .limit(1)
+                    .get();
+                
+                return !snapshot.empty;
+            } catch (error) {
+                console.error("Error checking referral code:", error);
+                return false;
+            }
+        }
+        
+        // Login Function
+        async function login() {
+            if (!termsCheckbox.checked) {
+                alert('Please accept the Terms & Conditions to continue');
+                return;
+            }
+            
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (!username || !password) {
+                alert('Please enter both username/email and password');
+                return;
+            }
+            
+            try {
+                // Try to sign in with email/password
+                const userCredential = await auth.signInWithEmailAndPassword(username, password);
+                const user = userCredential.user;
+                
+                // Load user data will be handled by auth state listener
+            } catch (error) {
+                console.error("Login error:", error);
+                alert("Login failed: " + error.message);
+            }
+        }
+        
+        // Signup Function
+        async function signup() {
+            if (!signupTermsCheckbox.checked) {
+                alert('Please accept the Terms & Conditions to continue');
+                return;
+            }
+            
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const referralInput = document.getElementById('referral-code').value;
+            
+            // Reset error messages
+            usernameError.style.display = 'none';
+            emailError.style.display = 'none';
+            referralError.style.display = 'none';
+            
+            // Validate username format
+            if (!username.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
+                alert('Username must contain at least:\n- 1 uppercase letter\n- 1 lowercase letter\n- 1 number\n- 1 special character');
+                return;
+            }
+            
+            if (!email || !password) {
+                alert('Please fill all required fields');
+                return;
+            }
+            
+            // Check if username exists
+            const usernameExists = await checkUsernameExists(username);
+            if (usernameExists) {
+                usernameError.style.display = 'block';
+                return;
+            }
+            
+            // Check if email exists
+            const emailExists = await checkEmailExists(email);
+            if (emailExists) {
+                emailError.style.display = 'block';
+                return;
+            }
+            
+            // Validate referral code
+            const referralValid = await validateReferralCode(referralInput);
+            if (referralInput && !referralValid) {
+                referralError.style.display = 'block';
+                return;
+            }
+            
+            try {
+                // Create user with email/password
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Generate a referral code for the new user
+                const newUserReferralCode = generateReferralCode();
+                
+                // Process referral if exists and valid
+                let referrerId = null;
+                if (referralValid && referralInput && referralInput !== newUserReferralCode) {
+                    // Find the referrer
+                    const referrerSnapshot = await db.collection('users')
+                        .where('referralCode', '==', referralInput)
+                        .limit(1)
+                        .get();
+                    
+                    if (!referrerSnapshot.empty) {
+                        const referrerDoc = referrerSnapshot.docs[0];
+                        referrerId = referrerDoc.id;
+                        const referrerData = referrerDoc.data();
+                        
+                        // Update referrer's stats - give them 2x boost for 1 day and 5000 cookies
+                        await db.collection('users').doc(referrerId).update({
+                            referrals: (referrerData.referrals || 0) + 1,
+                            referralDays: (referrerData.referralDays || 0) + 1,
+                            multiplier: 2,
+                            cookies: (referrerData.cookies || 0) + 5000
+                        });
+                        
+                        // Set boost expiry for referrer (24 hours)
+                        const boostExpiry = new Date();
+                        boostExpiry.setDate(boostExpiry.getDate() + 1);
+                        
+                        await db.collection('users').doc(referrerId).update({
+                            boostExpiry: boostExpiry
+                        });
+                    }
+                    
+                    // Set multiplier for new user
+                    isBoosted = true;
+                }
+                
+                // Create user document in Firestore with referrer ID if exists
+                await db.collection('users').doc(user.uid).set({
+                    name: username,
+                    email: email,
+                    cookies: 100,
+                    referrals: 0,
+                    referralDays: 0,
+                    boostActive: false,
+                    multiplier: isBoosted ? 2 : 1,
+                    lastLogin: new Date(),
+                    referralCode: newUserReferralCode,
+                    lastClick: Date.now(),
+                    referrer: referrerId || null,
+                    dailyEarnings: 0,
+                    lastEarningDate: null
+                });
+                
+                // Set current user
+                currentUser = { 
+                    uid: user.uid,
+                    name: username,
+                    email: email,
+                    cookies: 100,
+                    referrals: 0,
+                    referralDays: 0,
+                    boostActive: false,
+                    multiplier: isBoosted ? 2 : 1,
+                    lastLogin: new Date(),
+                    referralCode: newUserReferralCode,
+                    lastClick: Date.now(),
+                    dailyEarnings: 0,
+                    lastEarningDate: null
+                };
+                
+                // Update UI
+                updateReferralStats();
+                updateMultiplier();
+                
+                if (referralValid && referralInput) {
+                    alert('Referral accepted! You got 2x speed for 24 hours!');
+                }
+                
+            } catch (error) {
+                console.error("Signup error:", error);
+                alert("Signup failed: " + error.message);
+            }
+        }
+        
+        // Reset Password Function
+        async function resetPassword() {
+            const email = document.getElementById('forgot-email').value;
+            
+            if (!email) {
+                alert('Please enter your email address');
+                return;
+            }
+            
+            try {
+                await auth.sendPasswordResetEmail(email);
+                alert(`Password reset link has been sent to ${email}`);
+                switchTab('login');
+            } catch (error) {
+                console.error("Password reset error:", error);
+                alert("Error sending reset email: " + error.message);
+            }
+        }
+        
+        // Logout Function
+        async function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                try {
+                    // Clean up leaderboard listener
+                    if (leaderboardUnsubscribe) {
+                        leaderboardUnsubscribe();
+                        leaderboardUnsubscribe = null;
+                    }
+                    
+                    await auth.signOut();
+                    // The auth state listener will handle the UI update
+                } catch (error) {
+                    console.error("Logout error:", error);
+                }
+            }
+        }
+        
+        // Cookie Click Function with Fast Tapping
+        async function tapCookie() {
+            // Check daily limit
+            if (limitReached) {
+                return;
+            }
+            
+            // Check if we need to reset daily earnings
+            checkDailyReset();
+            
+            // Add click animation
+            cookieBtn.classList.add('cookie-click');
+            setTimeout(() => {
+                cookieBtn.classList.remove('cookie-click');
+            }, 100);
+            
+            // Check if user has a referral boost
+            if (currentUser.uid) {
+                const doc = await db.collection('users').doc(currentUser.uid).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.boostExpiry) {
+                        const now = new Date();
+                        const expiry = data.boostExpiry.toDate();
+                        if (now > expiry) {
+                            isBoosted = false;
+                            await db.collection('users').doc(currentUser.uid).update({
+                                multiplier: 1
+                            });
+                        } else {
+                            isBoosted = true;
+                        }
+                    }
+                }
+            }
+            
+            // Calculate cookies based on multiplier
+            const earned = isBoosted ? 2 : 1;
+            
+            // Check if we would exceed daily limit
+            if (dailyEarnings + earned > 50000) {
+                limitReached = true;
+                dailyEarnings = 50000;
+                limitNotification.style.display = 'block';
+                limitTimerDisplay.style.display = 'block';
+                startLimitTimer();
+                return;
+            }
+            
+            cookies += earned;
+            dailyEarnings += earned;
+            updateCookies();
+            updateDailyEarnings();
+            
+            // Save to database
+            if (currentUser.uid) {
+                await db.collection('users').doc(currentUser.uid).update({
+                    cookies: cookies,
+                    lastClick: Date.now(),
+                    dailyEarnings: dailyEarnings,
+                    lastEarningDate: new Date()
+                });
+            }
+        }
+        
+        // Update Cookie Display
+        function updateCookies() {
+            cookieCount.textContent = cookies + ' Cookies';
+            userCookies.textContent = cookies;
+        }
+        
+        // Update Daily Earnings Display
+        function updateDailyEarnings() {
+            dailyEarningsDisplay.textContent = dailyEarnings + '/50000';
+        }
+        
+        // Update Multiplier Display
+        function updateMultiplier() {
+            const multiplier = isBoosted ? 2 : 1;
+            userMultiplier.textContent = multiplier + 'x';
+            userBoost.textContent = isBoosted ? 'Yes' : 'No';
+        }
+        
+        // Update Referral Stats
+        function updateReferralStats() {
+            userReferrals.textContent = referrals;
+            referralDaysDisplay.textContent = `${referralDays} day${referralDays !== 1 ? 's' : ''}`;
+        }
+        
+        // Buy Boost Function
+        async function buyBoost() {
+            if (boostActive) {
+                alert("Dear user, your 2x Boost Plan is currently active with a time limit of 1 month. It will expire after 1 month, after which you can activate the boost plan again. Thank You!");
+                return;
+            }
+            
+            if (confirm('Purchase $10 Boost Plan?\n\nYou will receive:\n- 5000 Cookies immediately\n- 2x multiplier for 1 month (30 days)\n\nNote: This is a one-time non-refundable purchase.')) {
+                cookies += 5000;
+                isBoosted = true;
+                boostActive = true;
+                boostBtn.classList.add('disabled');
+                
+                // Set boost expiry date (30 days from now)
+                const boostExpiry = new Date();
+                boostExpiry.setDate(boostExpiry.getDate() + 30);
+                
+                // Update database
+                if (currentUser.uid) {
+                    await db.collection('users').doc(currentUser.uid).update({
+                        cookies: cookies,
+                        boostActive: true,
+                        multiplier: 2,
+                        boostExpiry: boostExpiry
+                    });
+                }
+                
+                updateCookies();
+                updateMultiplier();
+                
+                // Boost expires after 30 days
+                setTimeout(async () => {
+                    isBoosted = false;
+                    boostActive = false;
+                    boostBtn.classList.remove('disabled');
+                    
+                    if (currentUser.uid) {
+                        await db.collection('users').doc(currentUser.uid).update({
+                            boostActive: false,
+                            multiplier: 1
+                        });
+                    }
+                    
+                    updateMultiplier();
+                    alert('Your 1-month boost has expired! You can now purchase it again.');
+                }, 2592000000); // 30 days in milliseconds
+            }
+        }
+        
+        // Watch Ad Function
+        async function watchAd() {
+            if (adCooldown) {
+                alert('Ad boost is on cooldown! Try again later.');
+                return;
+            }
+            
+            if (confirm('Watch a 30-second ad for 10-minute 2x boost?')) {
+                isBoosted = true;
+                adCooldown = true;
+                
+                // Update database
+                if (currentUser.uid) {
+                    await db.collection('users').doc(currentUser.uid).update({
+                        multiplier: 2
+                    });
+                }
+                
+                updateMultiplier();
+                
+                // Boost expires after 10 minutes
+                setTimeout(async () => {
+                    isBoosted = false;
+                    
+                    if (currentUser.uid) {
+                        await db.collection('users').doc(currentUser.uid).update({
+                            multiplier: 1
+                        });
+                    }
+                    
+                    updateMultiplier();
+                }, 600000); // 10 minutes
+                
+                // Cooldown expires after 30 minutes
+                setTimeout(() => {
+                    adCooldown = false;
+                }, 1800000); // 30 minutes
+            }
+        }
+        
+        // Open Withdrawal Modal
+        function openWithdrawModal() {
+            withdrawModal.style.display = 'flex';
+            withdrawCookiesInput.value = '100000';
+            accountNameInput.value = '';
+            accountNumberInput.value = '';
+            withdrawError.style.display = 'none';
+            withdrawSuccess.style.display = 'none';
+            giveMeBtn.style.display = 'none';
+            updateRupeesDisplay(100000);
+        }
+        
+        // Close Withdrawal Modal
+        function closeWithdrawModal() {
+            withdrawModal.style.display = 'none';
+        }
+        
+        // Update Rupees Display based on cookies
+        function updateRupeesDisplay(cookieAmount) {
+            if (cookieAmount < 100000) {
+                rupeesDisplay.textContent = 'Minimum 100,000 cookies required';
+                giveMeBtn.style.display = 'none';
+                return;
+            }
+            
+            // Calculate rupees (100,000 cookies = 120 rupees, then double for each additional 100,000)
+            const baseRupees = 120;
+            const additionalBlocks = Math.floor((cookieAmount - 100000) / 100000);
+            const totalRupees = baseRupees * Math.pow(2, additionalBlocks);
+            
+            // Cap at 1000 rupees maximum
+            const cappedRupees = Math.min(totalRupees, 1000);
+            const cappedCookies = cappedRupees === 1000 ? 
+                Math.floor(100000 * (Math.log2(1000/120) + 1) + 100000 : 
+                cookieAmount;
+            
+            rupeesDisplay.textContent = `${cappedCookies.toLocaleString()} Cookies = ${cappedRupees} Rupees`;
+            
+            // Show the Give Me button if all fields are filled
+            if (accountNameInput.value && accountNumberInput.value && cookieAmount >= 100000) {
+                giveMeBtn.style.display = 'block';
+            } else {
+                giveMeBtn.style.display = 'none';
+            }
+        }
+        
+        // Process Withdrawal
+        async function processWithdrawal() {
+            const cookieAmount = parseInt(withdrawCookiesInput.value);
+            const paymentMethod = paymentMethodSelect.value;
+            const accountName = accountNameInput.value.trim();
+            const accountNumber = accountNumberInput.value.trim();
+            
+            // Validate inputs
+            if (cookieAmount < 100000) {
+                withdrawError.textContent = 'Minimum withdrawal is 100,000 cookies';
+                withdrawError.style.display = 'block';
+                return;
+            }
+            
+            if (!accountName || !accountNumber) {
+                withdrawError.textContent = 'Please fill all account details';
+                withdrawError.style.display = 'block';
+                return;
+            }
+            
+            // Check if user has enough cookies
+            if (cookies < cookieAmount) {
+                withdrawError.textContent = 'Insufficient cookies in your account';
+                withdrawError.style.display = 'block';
+                return;
+            }
+            
+            // Calculate rupees
+            const baseRupees = 120;
+            const additionalBlocks = Math.floor((cookieAmount - 100000) / 100000);
+            let totalRupees = baseRupees * Math.pow(2, additionalBlocks);
+            totalRupees = Math.min(totalRupees, 1000);
+            
+            // Deduct cookies from user's account
+            cookies -= cookieAmount;
+            updateCookies();
+            
+            // Save to database
+            if (currentUser.uid) {
+                await db.collection('users').doc(currentUser.uid).update({
+                    cookies: cookies,
+                    lastClick: Date.now()
+                });
+                
+                // Record the withdrawal transaction
+                await db.collection('withdrawals').add({
+                    userId: currentUser.uid,
+                    userName: currentUser.name,
+                    cookies: cookieAmount,
+                    rupees: totalRupees,
+                    paymentMethod: paymentMethod,
+                    accountName: accountName,
+                    accountNumber: accountNumber,
+                    timestamp: new Date(),
+                    status: 'pending'
+                });
+            }
+            
+            // Show success message
+            withdrawError.style.display = 'none';
+            withdrawSuccess.style.display = 'block';
+            giveMeBtn.style.display = 'none';
+            
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                closeWithdrawModal();
+            }, 3000);
+        }
+        
+        // Event Listeners
+        cookieBtn.addEventListener('click', tapCookie);
+        
+        // Check username availability on input
+        document.getElementById('signup-username').addEventListener('blur', async function() {
+            const username = this.value;
+            if (username && username.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
+                const exists = await checkUsernameExists(username);
+                if (exists) {
+                    usernameError.style.display = 'block';
+                } else {
+                    usernameError.style.display = 'none';
+                }
+            }
+        });
+        
+        // Check email availability on input
+        document.getElementById('signup-email').addEventListener('blur', async function() {
+            const email = this.value;
+            if (email) {
+                const exists = await checkEmailExists(email);
+                if (exists) {
+                    emailError.style.display = 'block';
+                } else {
+                    emailError.style.display = 'none';
+                }
+            }
+        });
+        
+        // Check referral code validity on input
+        document.getElementById('referral-code').addEventListener('blur', async function() {
+            const code = this.value;
+            if (code) {
+                const valid = await validateReferralCode(code);
+                if (!valid) {
+                    referralError.style.display = 'block';
+                } else {
+                    referralError.style.display = 'none';
+                }
+            } else {
+                referralError.style.display = 'none';
+            }
+        });
+        
+        // Disable login button if terms not checked
+        termsCheckbox.addEventListener('change', function() {
+            loginButton.disabled = !this.checked;
+        });
+        
+        // Disable signup button if terms not checked
+        signupTermsCheckbox.addEventListener('change', function() {
+            signupButton.disabled = !this.checked;
+        });
+        
+        // Withdrawal modal event listeners
+        withdrawCookiesInput.addEventListener('input', function() {
+            const value = parseInt(this.value) || 0;
+            updateRupeesDisplay(value);
+        });
+        
+        accountNameInput.addEventListener('input', function() {
+            const cookieAmount = parseInt(withdrawCookiesInput.value) || 0;
+            updateRupeesDisplay(cookieAmount);
+        });
+        
+        accountNumberInput.addEventListener('input', function() {
+            const cookieAmount = parseInt(withdrawCookiesInput.value) || 0;
+            updateRupeesDisplay(cookieAmount);
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === withdrawModal) {
+                closeWithdrawModal();
+            }
+        });
+    </script>
+</body>
+</html>
